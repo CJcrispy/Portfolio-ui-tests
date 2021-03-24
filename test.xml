@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" name="DND Beyond Tests">
+    
+    <listeners>
+        
+    </listeners>
+    
+    <test name="Regression" parallel="methods">
+        <classes>
+            <class name="dnd.testng.tests.test_HomePage"></class>
+        </classes>
+    </test>
+</suite>
