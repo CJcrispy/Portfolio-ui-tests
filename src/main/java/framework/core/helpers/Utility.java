@@ -9,4 +9,9 @@ public class Utility {
         }
         return applicationURL;
     }
+
+    public static String getWebObject(String object_name){
+        String web_object = Initializers.objectprops.getProperty(object_name);
+        return web_object;
+    }
 }

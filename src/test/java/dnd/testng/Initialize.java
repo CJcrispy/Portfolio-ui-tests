@@ -2,6 +2,7 @@ package dnd.testng;
 
 import framework.core.helpers.Initializers;
 import framework.core.helpers.Utility;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
@@ -17,7 +18,9 @@ public class Initialize {
 
     @BeforeSuite
     public static void initialize() throws SQLException{
+
         Initializers.loadApplicationProperties();
+        Initializers.loadObjectProperties();
     }
 
     @BeforeMethod
@@ -32,6 +35,7 @@ public class Initialize {
         }
     }
 
+    @AfterMethod
     public static void Quit(){
         Initializers.getDriver().close();
         Initializers.getDriver().quit();

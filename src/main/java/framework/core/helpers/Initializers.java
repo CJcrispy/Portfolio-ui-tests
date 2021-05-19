@@ -10,6 +10,7 @@ import java.util.Properties;
 public class Initializers {
 
     public static Properties applicationprops;
+    public static Properties objectprops;
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
     public static String downloadPath = System.getProperty("user.home")+"/Downloads";
 
@@ -23,6 +24,21 @@ public class Initializers {
                     propertiesFilesLocation
             );
             applicationprops.load(propfile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadObjectProperties() {
+        String propertiesFilesLocation = null;
+        propertiesFilesLocation = System.getProperty("user.dir")
+                + "//src/main//resources//application//object.properties";
+        try {
+            objectprops = new Properties();
+            FileInputStream propfile = new FileInputStream(
+                    propertiesFilesLocation
+            );
+            objectprops.load(propfile);
         } catch (Exception e) {
             e.printStackTrace();
         }

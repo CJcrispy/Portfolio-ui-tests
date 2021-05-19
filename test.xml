@@ -3,7 +3,7 @@
 <suite configfailurepolicy="continue" name="DND Beyond Tests">
     
     <listeners>
-        
+        <listener class-name="framework.core.listeners.ReportListener"></listener>
     </listeners>
     
     <test name="Regression" parallel="methods">

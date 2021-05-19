@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9cde7908-8820-4692-98e2-595a93d02485" name="Default Changelist" comment="" />
+    <list default="true" id="9cde7908-8820-4692-98e2-595a93d02485" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ci/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ci/pipeline.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ci/scripts/run_postman_collection.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ci/tasks/run_postman_collection" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/framework/core/listeners/ReportListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application/object.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Initializers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Initializers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/commons/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/commons/chromedriver.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/Initialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dnd/testng/Initialize.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/tests/test_HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dnd/testng/tests/test_HomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/commons/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/commons/chromedriver.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/helpers/Initializers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/helpers/Initializers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/helpers/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/helpers/Utility.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/Initialize.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dnd/testng/Initialize.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/tests/test_HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dnd/testng/tests/test_HomePage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +36,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
       <MavenImportingSettings>
@@ -22,6 +47,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1qAaP1qxFH8QlUvJXSUE7oZGWmd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -30,14 +58,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Chris\Documents\Github\dndBeyond-ui-tests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="TestNG.TestNG start">
     <configuration name="TestNG start" type="TestNG">
       <module name="dndBeyond-ui-tests" />
       <option name="SUITE_NAME" value="$PROJECT_DIR$/test.xml" />
@@ -58,6 +91,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test_HomePage.about_page_test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="dndBeyond-ui-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dnd.testng.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dnd.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="dnd.testng.tests.test_HomePage" />
+      <option name="METHOD_NAME" value="about_page_test" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.test_HomePage.about_page_test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -97,26 +153,31 @@
       <screen x="-1920" y="6" width="1920" height="1040" />
     </state>
     <state x="-1231" y="309" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616534045115" />
-    <state x="-1180" y="266" key="FileChooserDialogImpl" timestamp="1616534052020">
-      <screen x="-1920" y="6" width="1920" height="1040" />
+    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1620536248500">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-1180" y="266" key="FileChooserDialogImpl/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616534052020" />
-    <state width="1877" height="425" key="GridCell.Tab.0.bottom" timestamp="1616539358353">
-      <screen x="-1920" y="6" width="1920" height="1040" />
+    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620536248500" />
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1620612876681">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616539358353" />
-    <state width="1877" height="425" key="GridCell.Tab.0.center" timestamp="1616539358353">
-      <screen x="-1920" y="6" width="1920" height="1040" />
+    <state width="1877" height="425" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876681" />
+    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1620612876681">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616539358353" />
-    <state width="1877" height="425" key="GridCell.Tab.0.left" timestamp="1616539358353">
-      <screen x="-1920" y="6" width="1920" height="1040" />
+    <state width="1877" height="425" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
+    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876681" />
+    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1620612876679">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616539358353" />
-    <state width="1877" height="425" key="GridCell.Tab.0.right" timestamp="1616539358353">
-      <screen x="-1920" y="6" width="1920" height="1040" />
+    <state width="1877" height="425" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
+    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876679" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1620612876681">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616539358353" />
+    <state width="1877" height="425" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876681" />
     <state x="-1480" y="100" key="SettingsEditor" timestamp="1616533618908">
       <screen x="-1920" y="6" width="1920" height="1040" />
     </state>
