@@ -12,7 +12,7 @@ public class test_ContactSection extends Initialize {
     @Test
     public static void validate_githubLink(){
         try{
-            String text = "Github";
+            String text = "GITHUB";
             WebElement link_text = Utility.getWebElement("contact.githubText");
             Assert.assertEquals(link_text.getText(), text);
 
@@ -30,7 +30,7 @@ public class test_ContactSection extends Initialize {
     @Test
     public static void validate_linkedInLink(){
         try{
-            String text = "LinkedIn";
+            String text = "LINKEDIN";
             WebElement link_text = Utility.getWebElement("contact.linkedInText");
             Assert.assertEquals(link_text.getText(), text);
 
@@ -48,7 +48,7 @@ public class test_ContactSection extends Initialize {
     @Test
     public static void validate_twitterLink(){
         try{
-            String text = "Twitter";
+            String text = "TWITTER";
             WebElement link_text = Utility.getWebElement("contact.twitterText");
             Assert.assertEquals(link_text.getText(), text);
 

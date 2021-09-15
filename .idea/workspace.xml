@@ -6,6 +6,8 @@
       <change beforePath="$PROJECT_DIR$/src/test/java/portfolio/testng/Initialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/Initialize.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ContactSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ContactSection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ProjectsSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ProjectsSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ContactSection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ContactSection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ProjectsSection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ProjectsSection.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-output/test-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/test-report.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,6 +118,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test_ProjectsSection.validate_socialMediaCoreProjectCard" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="portfolio-ui-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="portfolio.testng.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_ProjectsSection" />
+      <option name="METHOD_NAME" value="validate_socialMediaCoreProjectCard" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="test_ProjectsSection.validate_sudokuProjectCard" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="portfolio-ui-tests" />
       <extension name="coverage">
@@ -127,24 +147,6 @@
       <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
       <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_ProjectsSection" />
       <option name="METHOD_NAME" value="validate_sudokuProjectCard" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="test_SkillsSection.skills_page_test" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="portfolio-ui-tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="portfolio.testng.tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
-      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_SkillsSection" />
-      <option name="METHOD_NAME" value="skills_page_test" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -172,11 +174,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.test_ProjectsSection.validate_socialMediaCoreProjectCard" />
         <item itemvalue="TestNG.test_ProjectsSection.validate_sudokuProjectCard" />
         <item itemvalue="TestNG.test_ContactSection.validate_contactForm" />
         <item itemvalue="TestNG.test_ProjectsSection.validate_portfolioProjectCard" />
         <item itemvalue="TestNG.test_SkillsSection.skills_page_test2" />
-        <item itemvalue="TestNG.test_SkillsSection.skills_page_test" />
       </list>
     </recent_temporary>
   </component>
@@ -217,21 +219,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675169136" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1631675408342">
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1631739812842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408342" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1631675408342">
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631739812842" />
+    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1631739812842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408342" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1631675408341">
+    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631739812842" />
+    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1631739812842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408341" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1631675408342">
+    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631739812842" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1631739812842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408342" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631739812842" />
   </component>
 </project>

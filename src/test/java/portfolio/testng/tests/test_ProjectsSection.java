@@ -45,12 +45,15 @@ public class test_ProjectsSection extends Initialize {
             String socialMedia_github = "https://github.com/CJcrispy/Social-Media-API";
             WebElement project_section = Utility.getWebElement("portfolio.projectsButton");
             project_section.click();
+            Thread.sleep(3000);
 
             WebElement web_tab = Utility.getWebElement("projects.backEndTab");
             web_tab.click();
+            Thread.sleep(3000);
 
             WebElement project_pic = Utility.getWebElement("projects.socialMediaCoreImage");
             Assert.assertTrue(project_pic.isDisplayed(),"Social Media core project image is present");
+            Thread.sleep(3000);
 
             WebElement project_title = Utility.getWebElement("projects.socialMediaCoreTitle");
             Assert.assertNotNull(project_title, "Project title is present");
@@ -75,12 +78,15 @@ public class test_ProjectsSection extends Initialize {
             String sudoku_github = "https://github.com/CJcrispy/Sudoku-game";
             WebElement project_section = Utility.getWebElement("portfolio.projectsButton");
             project_section.click();
+            Thread.sleep(3000);
 
             WebElement web_tab = Utility.getWebElement("projects.backEndTab");
             web_tab.click();
+            Thread.sleep(3000);
 
             WebElement project_pic = Utility.getWebElement("projects.sudokuImage");
             Assert.assertTrue(project_pic.isDisplayed(),"Portfolio project image is present");
+            Thread.sleep(3000);
 
             WebElement project_title = Utility.getWebElement("projects.sudokuTitle");
             Assert.assertNotNull(project_title, "Project title is present");
@@ -102,15 +108,18 @@ public class test_ProjectsSection extends Initialize {
     @Test
     public static void validate_testngRegressionProjectCard(){
         try {
-            String portfolioTests_github = "https://github.com/CJcrispy/Portfolio-ui-testse";
+            String portfolioTests_github = "https://github.com/CJcrispy/Portfolio-ui-tests";
             WebElement project_section = Utility.getWebElement("portfolio.projectsButton");
             project_section.click();
+            Thread.sleep(3000);
 
             WebElement web_tab = Utility.getWebElement("projects.testingTab");
             web_tab.click();
+            Thread.sleep(3000);
 
             WebElement project_pic = Utility.getWebElement("projects.testngImage");
             Assert.assertTrue(project_pic.isDisplayed(),"Portfolio project image is present");
+            Thread.sleep(3000);
 
             WebElement project_title = Utility.getWebElement("projects.testngTitle");
             Assert.assertNotNull(project_title, "Project title is present");
