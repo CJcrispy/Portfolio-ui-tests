@@ -14,7 +14,7 @@ public class test_ContactSection extends Initialize {
         try{
             String text = "Github";
             WebElement link_text = Utility.getWebElement("contact.githubText");
-            Assert.assertEquals(link_text, text);
+            Assert.assertEquals(link_text.getText(), text);
 
             String github_link = "https://github.com/CJcrispy";
             WebElement element = Utility.getWebElement("contact.githubLink");
@@ -32,7 +32,7 @@ public class test_ContactSection extends Initialize {
         try{
             String text = "LinkedIn";
             WebElement link_text = Utility.getWebElement("contact.linkedInText");
-            Assert.assertEquals(link_text, text);
+            Assert.assertEquals(link_text.getText(), text);
 
             String linkedIn_link = "https://www.linkedin.com/in/christopher-copeland-3aa599180/";
             WebElement element = Utility.getWebElement("contact.linkedInLink");
@@ -50,7 +50,7 @@ public class test_ContactSection extends Initialize {
         try{
             String text = "Twitter";
             WebElement link_text = Utility.getWebElement("contact.twitterText");
-            Assert.assertEquals(link_text, text);
+            Assert.assertEquals(link_text.getText(), text);
 
             String linkedIn_link = "https://twitter.com/CJcrispy_";
             WebElement element = Utility.getWebElement("contact.twitterLink");
@@ -68,7 +68,7 @@ public class test_ContactSection extends Initialize {
         try{
             String text = "cjcopeland20@gmail.com";
             WebElement link_text = Utility.getWebElement("contact.emailAddress");
-            Assert.assertEquals(link_text, text);
+            Assert.assertEquals(link_text.getText(), text);
         } catch (Exception e) {
             e.printStackTrace();
         }

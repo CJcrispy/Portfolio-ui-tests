@@ -2,47 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9cde7908-8820-4692-98e2-595a93d02485" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/framework/core/utilities/Util.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_AboutSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ContactSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_HomeSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ProjectsSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_SkillsSection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$ClassResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$MethodResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$SuiteResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestResult$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestResult.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/utilities/Util.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/Initialize.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_AboutSection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ContactSection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_HomeSection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ProjectsSection.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_SkillsSection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dndBeyond-ui-tests.iml" beforeDir="false" afterPath="$PROJECT_DIR$/portfolio-ui-tests.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/listeners/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/listeners/ReportListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application/object.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application/object.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/commons/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/commons/chromedriver.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/Initialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/Initialize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/tests/test_HomePage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application/object.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application/object.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/commons/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/commons/chromedriver.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/helpers/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/helpers/Utility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestMethodSorter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestResultsSorter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestSorter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/Initialize.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/tests/test_HomePage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-output/custom-report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/portfolio/testng/Initialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/Initialize.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ContactSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ContactSection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ProjectsSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ProjectsSection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-output/test-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/test-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +59,7 @@
       <recent name="C:\Users\Chris\Documents\Github\dndBeyond-ui-tests\src\main\resources\commons" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.test_ProjectsSection.validate_sudokuProjectCard">
+  <component name="RunManager" selected="TestNG.TestNG start">
     <configuration name="TestNG start" type="TestNG">
       <module name="portfolio-ui-tests" />
       <option name="SUITE_NAME" value="$PROJECT_DIR$/test.xml" />
@@ -253,21 +217,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675169136" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1631675123831">
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1631675408342">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1631675123831">
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408342" />
+    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1631675408342">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1631675123831">
+    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408342" />
+    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1631675408341">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1631675123831">
+    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408341" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1631675408342">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675408342" />
   </component>
 </project>

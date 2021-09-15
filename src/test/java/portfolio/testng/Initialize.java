@@ -37,7 +37,7 @@ public class Initialize {
 
     @AfterMethod
     public static void Quit(){
-        Initializers.getDriver().quit();
+//        Initializers.getDriver().quit();
     }
 
 }

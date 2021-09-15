@@ -50,7 +50,7 @@ public class test_ProjectsSection extends Initialize {
             web_tab.click();
 
             WebElement project_pic = Utility.getWebElement("projects.socialMediaCoreImage");
-            Assert.assertTrue(project_pic.isDisplayed(),"Portfolio project image is present");
+            Assert.assertTrue(project_pic.isDisplayed(),"Social Media core project image is present");
 
             WebElement project_title = Utility.getWebElement("projects.socialMediaCoreTitle");
             Assert.assertNotNull(project_title, "Project title is present");
