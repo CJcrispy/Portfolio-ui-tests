@@ -6,614 +6,949 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-import org.testng.IInvokedMethod;
 import org.testng.IReporter;
-import org.testng.IResultMap;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
-import org.testng.ITestClass;
 import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.collections.Lists;
 import org.testng.internal.Utils;
+import org.testng.log4testng.Logger;
 import org.testng.xml.XmlSuite;
 
+import framework.core.utilities.Util;
+
 /**
- * Created by VISISHTA.
+ * Reporter that generates a single-page HTML report of the test results.
  */
-public class ReportListener implements IReporter{
+public class ReportListener implements IReporter {
 
-    private PrintWriter writer;
-    private int m_row;
-    private Integer m_testIndex;
-    private int m_methodIndex;
-    private String reportTitle= "TestNG Customized Report";
-    private String reportFileName = "custom-report.html";
+    private static final Logger LOG = Logger.getLogger(ReportListener.class);
 
-    /** Creates summary of the run */
+    protected PrintWriter writer;
+
+    protected final List<SuiteResult> suiteResults = Lists.newArrayList();
+
+    // Reusable buffer
+    private final StringBuilder buffer = new StringBuilder();
+
+    private String dReportTitle = "TestNG Customized Report";
+    private String dReportFileName = "test-report.html";
+
+
     @Override
-    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites,
-                               String outdir) {
+    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
         try {
-            writer = createWriter(outdir);
+            writer = createWriter(outputDirectory);
         } catch (IOException e) {
-            System.err.println("Unable to create output file");
-            e.printStackTrace();
+            LOG.error("Unable to create output file", e);
             return;
         }
+        for (ISuite suite : suites) {
+            suiteResults.add(new SuiteResult(suite));
+        }
 
-        startHtml(writer);
-        writeReportTitle(reportTitle);
-        generateSuiteSummaryReport(suites);
-        generateMethodSummaryReport(suites);
-        generateMethodDetailReport(suites);
-        endHtml(writer);
-        writer.flush();
+        writeDocumentStart();
+        writeHead();
+        writeBody();
+        writeDocumentEnd();
+
         writer.close();
     }
 
     protected PrintWriter createWriter(String outdir) throws IOException {
         new File(outdir).mkdirs();
-        return new PrintWriter(new BufferedWriter(new FileWriter(new File(outdir, reportFileName))));
+        return new PrintWriter(new BufferedWriter(new FileWriter(new File(outdir, dReportFileName))));
     }
 
-    /**
-     * Creates a table showing the highlights of each test method with links to
-     * the method details
-     */
-    protected void generateMethodSummaryReport(List<ISuite> suites) {
-        m_methodIndex = 0;
-        startResultSummaryTable("methodOverview");
-        int testIndex = 1;
-        for (ISuite suite : suites) {
-            if (suites.size() >= 1) {
-                titleRow(suite.getName(), 5);
-            }
+    protected void writeReportTitle(String title) {
+        writer.println("<center><h1>" + title + " - " + Util.getCurrentDateTime() + "</h1></center>");
+    }
 
-            Map<String, ISuiteResult> r = suite.getResults();
-            for (ISuiteResult r2 : r.values()) {
-                ITestContext testContext = r2.getTestContext();
-                String testName = testContext.getName();
-                m_testIndex = testIndex;
-                resultSummary(suite, testContext.getFailedConfigurations(), testName, "failed", " (configuration methods)");
-                resultSummary(suite, testContext.getFailedTests(), testName, "failed", "");
-                resultSummary(suite, testContext.getSkippedConfigurations(), testName, "skipped", " (configuration methods)");
-                resultSummary(suite, testContext.getSkippedTests(), testName, "skipped", "");
-                resultSummary(suite, testContext.getPassedTests(), testName, "passed", "");
+    protected void writeDocumentStart() {
+        writer.println("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>");
+                writer.println("<html xmlns='http://www.w3.org/1999/xhtml'>");
+    }
+
+    protected void writeHead() {
+        writer.println("<head>");
+        writer.println("<meta http-equiv='content-type' content='text/html; charset=UTF-8'/>");
+        writer.println("<title>TestNG Report</title>");
+        writeStylesheet();
+        writer.println("</head>");
+    }
+
+    protected void writeStylesheet() {
+        writer.println("<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>");
+        writer.print("<style type='text/css'>");
+        writer.print("table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}");
+        writer.print("#summary {margin-top:30px}");
+        writer.print("h1 {font-size:30px}");
+        writer.print("body {width:100%;}");
+        writer.print("th,td {padding: 8px}");
+        writer.print("th {vertical-align:bottom}");
+        writer.print("td {vertical-align:top}");
+        writer.print("table a {font-weight:bold;color:#0D1EB6;}");
+        writer.print(".easy-overview {margin-left: auto; margin-right: auto;} ");
+        writer.print(".easy-test-overview tr:first-child {background-color:#D3D3D3}");
+        writer.print(".stripe td {background-color: #E6EBF9}");
+        writer.print(".num {text-align:right}");
+        writer.print(".passedodd td {background-color: #3F3}");
+        writer.print(".passedeven td {background-color: #0A0}");
+        writer.print(".skippedodd td {background-color: #DDD}");
+        writer.print(".skippedeven td {background-color: #CCC}");
+        writer.print(".failedodd td,.attn {background-color: #F33}");
+        writer.print(".failedeven td,.stripe .attn {background-color: #D00}");
+        writer.print(".stacktrace {font-family:monospace}");
+        writer.print(".totop {font-size:85%;text-align:center;border-bottom:2px solid #000}");
+        writer.print(".invisible {display:none}");
+        writer.println("</style>");
+    }
+
+    protected void writeBody() {
+        writer.println("<body>");
+        writeReportTitle(dReportTitle);
+        writeSuiteSummary();
+        writeScenarioSummary();
+        writeScenarioDetails();
+        writer.println("</body>");
+    }
+
+    protected void writeDocumentEnd() {
+        writer.println("</html>");
+    }
+
+    protected void writeSuiteSummary() {
+        NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss a");
+
+        int totalTestsCount = 0;
+        int totalPassedTests = 0;
+        int totalSkippedTests = 0;
+        int totalFailedTests = 0;
+        long totalDuration = 0;
+
+        writer.println("<div class='easy-test-overview'>");
+        writer.println("<table class='table-bordered easy-overview'>");
+        writer.print("<tr>");
+        writer.print("<th>Test</th>");
+        writer.print("<th># No</th>");
+        writer.print("<th># Passed</th>");
+        writer.print("<th># Skipped</th>");
+        writer.print("<th># Failed</th>");
+        writer.print("<th>Included Groups</th>");
+        writer.print("<th>Excluded Groups</th>");
+        writer.print("<th># Browser</th>");
+        writer.print("<th># Start Time</th>");
+        writer.print("<th># End Time</th>");
+        writer.print("<th># Total<br/>Time(hh:mm:ss)</th>");
+        writer.println("</tr>");
+
+        int testIndex = 0;
+        for (SuiteResult suiteResult : suiteResults) {
+            writer.print("<tr><th colspan='11'>");
+            writer.print(Utils.escapeHtml(suiteResult.getSuiteName()));
+            writer.println("</th></tr>");
+
+            for (TestResult testResult : suiteResult.getTestResults()) {
+                int testsCount = testResult.getTestCount();
+                int passedTests = testResult.getPassedTestCount();
+                int skippedTests = testResult.getSkippedTestCount();
+                int failedTests = testResult.getFailedTestCount();
+
+
+                Date startTime = testResult.getTestStartTime();
+                Date endTime = testResult.getTestEndTime();
+                long duration = testResult.getDuration();
+
+
+                writer.print("<tr");
+                if ((testIndex % 2) == 1) {
+                    writer.print(" class='stripe'");
+                }
+                writer.print(">");
+
+                buffer.setLength(0);
+                writeTableData(buffer.append("<a href='#t'").append(testIndex)
+                        .append("'>'")
+                                .append(Utils.escapeHtml(testResult.getTestName()))
+                                .append("</a>").toString());
+                writeTableData(integerFormat.format(testsCount), "num");
+                writeTableData(integerFormat.format(passedTests), "num");
+                writeTableData(integerFormat.format(skippedTests),
+                        (skippedTests > 0 ? "num attn" : "num"));
+                writeTableData(integerFormat.format(failedTests),
+                        (failedTests > 0 ? "num attn" : "num"));
+
+                writeTableData(testResult.getIncludedGroups());
+                writeTableData(testResult.getExcludedGroups());
+//                writeTableData(PropertyReader.getInstance().getBrowser(),  "num");
+                writeTableData(dateFormat.format(startTime),  "num");
+                writeTableData(dateFormat.format(endTime),  "num");
+                writeTableData(convertTimeToString(duration), "num");
+                writer.println("</tr>");
+
+                totalTestsCount +=testsCount;
+                totalPassedTests += passedTests;
+                totalSkippedTests += skippedTests;
+                totalFailedTests += failedTests;
+                totalDuration += duration;
                 testIndex++;
             }
         }
+
+
+
+        // Print totals if there was more than one test
+        if (testIndex > 1) {
+
+            writer.print("<tr>");
+            writer.print("<th>Total</th>");
+            writeTableHeader(integerFormat.format(totalTestsCount), "num");
+            writeTableHeader(integerFormat.format(totalPassedTests), "num");
+            writeTableHeader(integerFormat.format(totalSkippedTests),
+                    (totalSkippedTests > 0 ? "num attn" : "num"));
+            writeTableHeader(integerFormat.format(totalFailedTests),
+                    (totalFailedTests > 0 ? "num attn" : "num"));
+            writer.print("<th colspan='5'></th>");
+            writeTableHeader(convertTimeToString(totalDuration), "num");
+            writer.println("</tr>");
+        }
+
         writer.println("</table>");
-    }
-
-    /** Creates a section showing known results for each method */
-    protected void generateMethodDetailReport(List<ISuite> suites) {
-        m_methodIndex = 0;
-        for (ISuite suite : suites) {
-            Map<String, ISuiteResult> r = suite.getResults();
-            for (ISuiteResult r2 : r.values()) {
-                ITestContext testContext = r2.getTestContext();
-                if (r.values().size() > 0) {
-                    writer.println("<h1>" + testContext.getName() + "</h1>");
-                }
-                resultDetail(testContext.getFailedConfigurations());
-                resultDetail(testContext.getFailedTests());
-                resultDetail(testContext.getSkippedConfigurations());
-                resultDetail(testContext.getSkippedTests());
-                resultDetail(testContext.getPassedTests());
-            }
-        }
-    }
-
-    /**
-     * @param tests
-     */
-    private void resultSummary(ISuite suite, IResultMap tests, String testname,
-                               String style, String details) {
-
-        if (tests.getAllResults().size() > 0) {
-            StringBuffer buff = new StringBuffer();
-            String lastClassName = "";
-            int mq = 0;
-            int cq = 0;
-            for (ITestNGMethod method : getMethodSet(tests, suite)) {
-                m_row += 1;
-                m_methodIndex += 1;
-                ITestClass testClass = method.getTestClass();
-                String className = testClass.getName();
-                if (mq == 0) {
-                    String id = (m_testIndex == null ? null : "t"
-                            + Integer.toString(m_testIndex));
-                    titleRow(testname + " &#8212; " + style + details, 5, id);
-                    m_testIndex = null;
-                }
-                if (!className.equalsIgnoreCase(lastClassName)) {
-                    if (mq > 0) {
-                        cq += 1;
-                        writer.print("<tr class='' + style"
-                                + (cq % 2 == 0 ? "even" : "odd") + ">"
-                                + "<td");
-                        if (mq > 1) {
-                            writer.print(" rowspan='' + mq + ''");
-                        }
-                        writer.println(">" + lastClassName + "</td>" + buff);
-                    }
-                    mq = 0;
-                    buff.setLength(0);
-                    lastClassName = className;
-                }
-                Set<ITestResult> resultSet = tests.getResults(method);
-                long end = Long.MIN_VALUE;
-                long start = Long.MAX_VALUE;
-                long startMS=0;
-                String firstLine="";
-
-                for (ITestResult testResult : tests.getResults(method)) {
-                    if (testResult.getEndMillis() > end) {
-                        end = testResult.getEndMillis()/1000;
-                    }
-                    if (testResult.getStartMillis() < start) {
-                        startMS = testResult.getStartMillis();
-                        start =startMS/1000;
-                    }
-
-                    Throwable exception=testResult.getThrowable();
-                    boolean hasThrowable = exception != null;
-                    if(hasThrowable){
-                        String str = "Utils.stackTrace(exception, true)[0];";
-                        Scanner scanner = new Scanner(str);
-                        firstLine = scanner.nextLine();
-                    }
-                }
-                DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(startMS);
-
-                mq += 1;
-                if (mq > 1) {
-                    buff.append("<tr class='' + style"
-                            + (cq % 2 == 0 ? "odd" : "even") + ">");
-                }
-                String description = method.getDescription();
-                String testInstanceName = resultSet
-                        .toArray(new ITestResult[] {})[0].getTestName();
-                buff.append("<td><a href='#m'"
-                        + m_methodIndex
-                        + ">"
-                        + qualifiedName(method)
-                        + " "
-                        + (description != null && description.length() > 0 ? "("
-                        + description + "')'"
-								: "")
-                + "</a>"
-                        + (null == testInstanceName ? "" : "<br>("
-                        + testInstanceName + ")") + "</td>"
-                        + "<td class='numi' style='text-align:left;padding-right:2em'>" + firstLine+"<br/></td>"
-                        + "<td style='text-align:right'>" + formatter.format(calendar.getTime()) + "</td>" + "<td class='numi'>"
-                        + timeConversion(end - start) + "</td>" + "</tr>");
-
-            }
-            if (mq > 0) {
-                cq += 1;
-                writer.print("<tr class='' + style + (cq % 2 == 0 ? 'even' : 'odd') + ''>" + "<td");
-                if (mq > 1) {
-                    writer.print(" rowspan='' + mq + ''");
-                }
-                writer.println(">" + lastClassName + "</td>" + buff);
-            }
-        }
-    }
-
-
-    private String timeConversion(long seconds) {
-
-        final int MINUTES_IN_AN_HOUR = 60;
-        final int SECONDS_IN_A_MINUTE = 60;
-
-        int minutes = (int) (seconds / SECONDS_IN_A_MINUTE);
-        seconds -= minutes * SECONDS_IN_A_MINUTE;
-
-        int hours = minutes / MINUTES_IN_AN_HOUR;
-        minutes -= hours * MINUTES_IN_AN_HOUR;
-
-        return prefixZeroToDigit(hours) + ":" + prefixZeroToDigit(minutes) + ":" + prefixZeroToDigit((int)seconds);
-    }
-
-    private String prefixZeroToDigit(int num){
-        int number=num;
-        if(number<=9){
-            String sNumber="0"+number;
-            return sNumber;
-        }
-        else
-            return ""+number;
-
-    }
-
-    /** Starts and defines columns result summary table */
-    private void startResultSummaryTable(String style) {
-        tableStart(style, "summary");
-        writer.println("<tr><th>Class</th>"
-                + "<th>Method</th><th>Exception Info</th><th>Start Time </th><th>Execution Time<br/>(hh:mm:ss)</th></tr>");
-        m_row = 0;
-    }
-
-    private String qualifiedName(ITestNGMethod method) {
-        StringBuilder addon = new StringBuilder();
-        String[] groups = method.getGroups();
-        int length = groups.length;
-        if (length > 0 && !"basic".equalsIgnoreCase(groups[0])) {
-            addon.append("(");
-            for (int i = 0; i < length; i++) {
-                if (i > 0) {
-                    addon.append(", ");
-                }
-                addon.append(groups[i]);
-            }
-            addon.append(")");
-        }
-
-        return "<b>" + method.getMethodName() + "</b> " + addon;
-    }
-
-    private void resultDetail(IResultMap tests) {
-        Set<ITestResult> testResults=tests.getAllResults();
-        List<ITestResult> testResultsList = new ArrayList<ITestResult>(testResults);
-        System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-        System.setProperty("java.util.Collections.useLegacyMergeSort", "true");
-        Collections.sort(testResultsList, new TestResultsSorter());
-        for (ITestResult result : testResultsList) {
-            ITestNGMethod method = result.getMethod();
-            m_methodIndex++;
-            String cname = method.getTestClass().getName();
-            writer.println("<h2 id='m' + m_methodIndex + ''>" + cname + ":"
-                    + method.getMethodName() + "</h2>");
-            Set<ITestResult> resultSet = tests.getResults(method);
-            generateResult(result, method, resultSet.size());
-            writer.println("<p class='totop'><a href='#summary'>back to summary</a></p>");
-
-        }
-    }
-
-    private void generateResult(ITestResult ans, ITestNGMethod method,
-                                int resultSetSize) {
-        Object[] parameters = ans.getParameters();
-        boolean hasParameters = parameters != null && parameters.length > 0;
-        if (hasParameters) {
-            tableStart("result", null);
-            writer.print("<tr class='param'>");
-            for (int x = 1; x <= parameters.length; x++) {
-                writer.print("<th>Param." + x + "</th>");
-            }
-            writer.println("</tr>");
-            writer.print("<tr class='param stripe'>");
-            for (Object p : parameters) {
-                writer.println("<td>" + Utils.escapeHtml(Utils.toString(p))
-                        + "</td>");
-            }
-            writer.println("</tr>");
-        }
-        List<String> msgs = Reporter.getOutput(ans);
-        boolean hasReporterOutput = msgs.size() > 0;
-        Throwable exception = ans.getThrowable();
-        boolean hasThrowable = exception != null;
-        if (hasReporterOutput || hasThrowable) {
-            if (hasParameters) {
-                writer.print("<tr><td");
-                if (parameters.length > 1) {
-                    writer.print(" colspan='' + parameters.length + ''");
-                }
-                writer.println(">");
-            } else {
-                writer.println("<div>");
-            }
-            if (hasReporterOutput) {
-                if (hasThrowable) {
-                    writer.println("<h3>Test Messages</h3>");
-                }
-                for (String line : msgs) {
-                    writer.println(line + "<br/>");
-                }
-            }
-            if (hasThrowable) {
-                boolean wantsMinimalOutput = ans.getStatus() == ITestResult.SUCCESS;
-                if (hasReporterOutput) {
-                    writer.println("<h3>"
-                            + (wantsMinimalOutput ? "Expected Exception"
-                            : "Failure") + "</h3>");
-                }
-                generateExceptionReport(exception, method);
-            }
-            if (hasParameters) {
-                writer.println("</td></tr>");
-            } else {
-                writer.println("</div>");
-            }
-        }
-        if (hasParameters) {
-            writer.println("</table>");
-        }
-    }
-
-    protected void generateExceptionReport(Throwable exception, ITestNGMethod method) {
-        writer.print("<div class='stacktrace'>");
-//        writer.print(Utils.stackTrace(exception, true)[0]);
-
         writer.println("</div>");
     }
 
     /**
-     * Since the methods will be sorted chronologically, we want to return the
-     * ITestNGMethod from the invoked methods.
+     * Writes a summary of all the test scenarios.
      */
-    private Collection<ITestNGMethod> getMethodSet(IResultMap tests, ISuite suite) {
-
-        List<IInvokedMethod> r = Lists.newArrayList();
-        List<IInvokedMethod> invokedMethods = suite.getAllInvokedMethods();
-        for (IInvokedMethod im : invokedMethods) {
-            if (tests.getAllMethods().contains(im.getTestMethod())) {
-                r.add(im);
-            }
-        }
-
-        System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-        System.setProperty("java.util.Collections.useLegacyMergeSort", "true");
-        Collections.sort(r,new TestSorter());
-        List<ITestNGMethod> result = Lists.newArrayList();
-
-        // Add all the invoked methods
-        for (IInvokedMethod m : r) {
-            for (ITestNGMethod temp : result) {
-                if (!temp.equals(m.getTestMethod()))
-                    result.add(m.getTestMethod());
-            }
-        }
-
-        // Add all the methods that weren't invoked (e.g. skipped) that we
-        // haven't added yet
-        Collection<ITestNGMethod> allMethodsCollection=tests.getAllMethods();
-        List<ITestNGMethod> allMethods=new ArrayList<ITestNGMethod>(allMethodsCollection);
-        Collections.sort(allMethods, new TestMethodSorter());
-
-        for (ITestNGMethod m : allMethods) {
-            if (!result.contains(m)) {
-                result.add(m);
-            }
-        }
-        return result;
-    }
-
-    @SuppressWarnings("unused")
-    public void generateSuiteSummaryReport(List<ISuite> suites) {
-        tableStart("testOverview", null);
+    protected void writeScenarioSummary() {
+        writer.print("<div class='easy-test-summary'>");
+        writer.print("<table class='table-bordered' id='summary'>");
+        writer.print("<thead>");
         writer.print("<tr>");
-        tableColumnStart("Test");
-        tableColumnStart("Methods<br/>Passed");
-        tableColumnStart("# skipped");
-        tableColumnStart("# failed");
-        tableColumnStart("Browser");
-        tableColumnStart("Start<br/>Time");
-        tableColumnStart("End<br/>Time");
-        tableColumnStart("Total<br/>Time(hh:mm:ss)");
-        tableColumnStart("Included<br/>Groups");
-        tableColumnStart("Excluded<br/>Groups");
+        writer.print("<th>Class</th>");
+        writer.print("<th>Method</th>");
+        writer.print("<th>Short Exception</th>");
+        writer.print("<th>Screenshot</th>");
+        writer.print("<th>Start Time</th>");
+        writer.print("<th>End Time</th>");
+        writer.print("</tr>");
+        writer.print("</thead>");
 
-        writer.println("</tr>");
-        NumberFormat formatter = new DecimalFormat("#,##0.0");
-        int qty_tests = 0;
-        int qty_pass_m = 0;
-        int qty_pass_s = 0;
-        int qty_skip = 0;
-        long time_start = Long.MAX_VALUE;
-        int qty_fail = 0;
-        long time_end = Long.MIN_VALUE;
-        m_testIndex = 1;
-        for (ISuite suite : suites) {
-            if (suites.size() >= 1) {
-                titleRow(suite.getName(), 10);
-            }
-            Map<String, ISuiteResult> tests = suite.getResults();
-            for (ISuiteResult r : tests.values()) {
-                qty_tests += 1;
-                ITestContext overview = r.getTestContext();
+        int testIndex = 0;
+        int scenarioIndex = 0;
+        for (SuiteResult suiteResult : suiteResults) {
+            writer.print("<tbody><tr><th colspan='6'>");
+            writer.print(Utils.escapeHtml(suiteResult.getSuiteName()));
+            writer.print("</th></tr></tbody>");
 
-                startSummaryRow(overview.getName());
-                int q = getMethodSet(overview.getPassedTests(), suite).size();
-                qty_pass_m += q;
-                summaryCell(q, Integer.MAX_VALUE);
-                q = getMethodSet(overview.getSkippedTests(), suite).size();
-                qty_skip += q;
-                summaryCell(q, 0);
-                q = getMethodSet(overview.getFailedTests(), suite).size();
-                qty_fail += q;
-                summaryCell(q, 0);
+            for (TestResult testResult : suiteResult.getTestResults()) {
+                writer.printf("<tbody id='t%d'>", testIndex);
 
-                // Write OS and Browser
-                summaryCell(suite.getParameter("browserType"), true);
-                writer.println("</td>");
+                String testName = Utils.escapeHtml(testResult.getTestName());
+                int startIndex = scenarioIndex;
 
-                SimpleDateFormat summaryFormat = new SimpleDateFormat("hh:mm:ss");
-                summaryCell(summaryFormat.format(overview.getStartDate()),true);
-                writer.println("</td>");
+                scenarioIndex += writeScenarioSummary(testName
+                                + " &#8212; failed (configuration methods)",
+                        testResult.getFailedConfigurationResults(), "failed",
+                        scenarioIndex);
+                scenarioIndex += writeScenarioSummary(testName
+                                + " &#8212; failed", testResult.getFailedTestResults(),
+                        "failed", scenarioIndex);
+                scenarioIndex += writeScenarioSummary(testName
+                                + " &#8212; skipped (configuration methods)",
+                        testResult.getSkippedConfigurationResults(), "skipped",
+                        scenarioIndex);
+                scenarioIndex += writeScenarioSummary(testName
+                                + " &#8212; skipped",
+                        testResult.getSkippedTestResults(), "skipped",
+                        scenarioIndex);
+                scenarioIndex += writeScenarioSummary(testName
+                                + " &#8212; passed", testResult.getPassedTestResults(),
+                        "passed", scenarioIndex);
 
-                summaryCell(summaryFormat.format(overview.getEndDate()),true);
-                writer.println("</td>");
+                if (scenarioIndex == startIndex) {
+                    writer.print("<tr><th colspan='4' class='invisible'/></tr>");
+                }
 
-                time_start = Math.min(overview.getStartDate().getTime(), time_start);
-                time_end = Math.max(overview.getEndDate().getTime(), time_end);
-                summaryCell(timeConversion((overview.getEndDate().getTime() - overview.getStartDate().getTime()) / 1000), true);
+                writer.println("</tbody>");
 
-                summaryCell(overview.getIncludedGroups());
-                summaryCell(overview.getExcludedGroups());
-                writer.println("</tr>");
-                m_testIndex++;
+                testIndex++;
             }
         }
-        if (qty_tests > 1) {
-            writer.println("<tr class='total'><td>Total</td>");
-            summaryCell(qty_pass_m, Integer.MAX_VALUE);
-            summaryCell(qty_skip, 0);
-            summaryCell(qty_fail, 0);
-            summaryCell(" ", true);
-            summaryCell(" ", true);
-            summaryCell(" ", true);
-            summaryCell(timeConversion(((time_end - time_start) / 1000)), true);
-            writer.println("<td colspan='3'>&nbsp;</td></tr>");
-        }
+
         writer.println("</table>");
+        writer.println("</div>");
     }
 
-
-    private void summaryCell(String[] val) {
-        StringBuffer b = new StringBuffer();
-        for (String v : val) {
-            b.append(v + " ");
-        }
-        summaryCell(b.toString(), true);
-    }
-
-    private void summaryCell(String v, boolean isgood) {
-        writer.print("<td class='numi'" + (isgood ? "" : "_attn") + "'>' + v"
-                + "</td>");
-    }
-
-    private void startSummaryRow(String label) {
-        m_row += 1;
-        writer.print("<tr"
-                + (m_row % 2 == 0 ? " class='stripe'" : "")
-        + "><td style='text-align:left;padding-right:2em'><a href='#t'"
-                + m_testIndex + "><b>" + label + "</b></a>" + "</td>");
-
-    }
-
-    private void summaryCell(int v, int maxexpected) {
-        summaryCell(String.valueOf(v), v <= maxexpected);
-    }
-
-    private void tableStart(String cssclass, String id) {
-        writer.println("<table cellspacing='0' cellpadding='0'"
-                + (cssclass != null ? " class='' + cssclass + ''"
-						: " style='padding-bottom:2em'")
-        + (id != null ? " id='' + id + ''" : "") + ">");
-        m_row = 0;
-    }
-
-    private void tableColumnStart(String label) {
-        writer.print("<th>" + label + "</th>");
-    }
-
-    private void titleRow(String label, int cq) {
-        titleRow(label, cq, null);
-    }
-
-    private void titleRow(String label, int cq, String id) {
-        writer.print("<tr");
-        if (id != null) {
-            writer.print(" id='' + id + ''");
-        }
-        writer.println("><th colspan='' + cq + ''>" + label + "</th></tr>");
-        m_row = 0;
-    }
-
-    protected void writeReportTitle(String title) {
-        writer.print("<center><h1>" + title + " - " + getDateAsString() + "</h1></center>");
-    }
-
-
-    /*
-     * Method to get Date as String
+    /**
+     * Writes the scenario summary for the results of a given state for a single
+     * test.
      */
-    private String getDateAsString() {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
+    private int writeScenarioSummary(String description,
+                                     List<ClassResult> classResults, String cssClassPrefix,
+                                     int startingScenarioIndex) {
+        int scenarioCount = 0;
+        if (!classResults.isEmpty()) {
+            writer.print("<tr><th colspan='6'>");
+            writer.print(description);
+            writer.print("</th></tr>");
 
-    /** Starts HTML stream */
-    protected void startHtml(PrintWriter out) {
-        out.println("<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>");
-                out.println("<html xmlns='http://www.w3.org/1999/xhtml'>");
-        out.println("<head>");
-        out.println("<title>TestNG Report</title>");
-        out.println("<style type='text/css'>");
-        out.println("table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}");
-        out.println("td,th {border:1px solid #009;padding:.25em .5em}");
-        out.println(".result th {vertical-align:bottom}");
-        out.println(".param th {padding-left:1em;padding-right:1em}");
-        out.println(".param td {padding-left:.5em;padding-right:2em}");
-        out.println(".stripe td,.stripe th {background-color: #E6EBF9}");
-        out.println(".numi,.numi_attn {text-align:right}");
-        out.println(".total td {font-weight:bold}");
-        out.println(".passedodd td {background-color: #0A0}");
-        out.println(".passedeven td {background-color: #3F3}");
-        out.println(".skippedodd td {background-color: #CCC}");
-        out.println(".skippedodd td {background-color: #DDD}");
-        out.println(".failedodd td,.numi_attn {background-color: #F33}");
-        out.println(".failedeven td,.stripe .numi_attn {background-color: #D00}");
-        out.println(".stacktrace {white-space:pre;font-family:monospace}");
-        out.println(".totop {font-size:85%;text-align:center;border-bottom:2px solid #000}");
-        out.println("</style>");
-        out.println("</head>");
-        out.println("<body>");
+            int scenarioIndex = startingScenarioIndex;
+            int classIndex = 0;
+            for (ClassResult classResult : classResults) {
+                String cssClass = cssClassPrefix
+                        + ((classIndex % 2) == 0 ? "even" : "odd");
 
-    }
+                buffer.setLength(0);
 
-    /** Finishes HTML stream */
-    protected void endHtml(PrintWriter out) {
-        out.println("<center> TestNG Report </center>");
-        out.println("</body></html>");
-    }
+                int scenariosPerClass = 0;
+                int methodIndex = 0;
+                for (MethodResult methodResult : classResult.getMethodResults()) {
+                    List<ITestResult> results = methodResult.getResults();
+                    int resultsCount = results.size();
+                    assert resultsCount > 0;
 
-    // ~ Inner Classes --------------------------------------------------------
-    /** Arranges methods by classname and method name */
-    private class TestSorter implements Comparator<IInvokedMethod> {
-        // ~ Methods
-        // -------------------------------------------------------------
+                    ITestResult firstResult = results.iterator().next();
+                    String methodName = Utils.escapeHtml(firstResult
+                            .getMethod().getMethodName());
+                    long start = firstResult.getStartMillis();
+                    long end = firstResult.getEndMillis();
 
-        /** Arranges methods by classname and method name */
-        @Override
-        public int compare(IInvokedMethod obj1, IInvokedMethod obj2) {
-            int r = obj1.getTestMethod().getTestClass().getName().compareTo(obj2.getTestMethod().getTestClass().getName());
-            return r;
-        }
-    }
+                    String shortException="";
+                    String failureScreenShot="";
 
-    private class TestMethodSorter implements Comparator<ITestNGMethod> {
-        @Override
-        public int compare(ITestNGMethod obj1, ITestNGMethod obj2) {
-            int r = obj1.getTestClass().getName().compareTo(obj2.getTestClass().getName());
-            if (r == 0) {
-                r = obj1.getMethodName().compareTo(obj2.getMethodName());
+                    Throwable exception=firstResult.getThrowable();
+                    boolean hasThrowable = exception != null;
+                    if(hasThrowable){
+                        String str = Utils.shortStackTrace(exception, true);
+                        Scanner scanner = new Scanner(str);
+                        shortException = scanner.nextLine();
+                        scanner.close();
+                        List<String> msgs = Reporter.getOutput(firstResult);
+                        boolean hasReporterOutput = msgs.size() > 0;
+                        if(hasReporterOutput){
+                            for (String info : msgs) {
+                                failureScreenShot+=info+"<br/>";
+                            }
+                        }
+                    }
+
+
+                    DateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
+                    Calendar startTime = Calendar.getInstance();
+                    startTime.setTimeInMillis(start);
+
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.setTimeInMillis(end);
+
+
+                    // The first method per class shares a row with the class
+                    // header
+                    if (methodIndex > 0) {
+                        buffer.append("<tr class=''").append(cssClass)
+                                .append("'>'");
+
+                    }
+
+                    // Write the timing information with the first scenario per
+                    // method
+                    buffer.append("<td><a href='#m'").append(scenarioIndex)
+                            .append("'>'").append(methodName)
+                                    .append("</a></td>").append("<td rowspan=''")
+                                            .append("'>'").append(shortException)
+                                                    .append("</td>").append("<td rowspan=''")
+                                                            .append("'>'").append(failureScreenShot)
+                                                                    .append("</td>").append("<td rowspan=''")
+                                                                                    .append("'>'").append(formatter.format(startTime.getTime()))
+                                                                                            .append("</td>").append("<td rowspan=''")
+                                                                                                    .append("'>'").append(formatter.format(endTime.getTime())).append("</td></tr>");
+                                                                            scenarioIndex++;
+
+                    // Write the remaining scenarios for the method
+                    for (int i = 1; i < resultsCount; i++) {
+                        buffer.append("<tr class=''").append(cssClass)
+                                .append("'>'").append("<td><a href='#m'")
+                                .append(scenarioIndex).append("'>'")
+                                .append(methodName).append("</a></td></tr>");
+                        scenarioIndex++;
+                    }
+
+                    scenariosPerClass += resultsCount;
+                    methodIndex++;
+                }
+
+                // Write the test results for the class
+                writer.print("<tr class=''");
+                        writer.print(cssClass);
+                writer.print("'>'");
+                        writer.print("<td rowspan=''");
+                                writer.print(scenariosPerClass);
+                writer.print("'>'");
+                        writer.print(Utils.escapeHtml(classResult.getClassName()));
+                writer.print("</td>");
+                writer.print(buffer);
+
+                classIndex++;
             }
-            return r;
+            scenarioCount = scenarioIndex - startingScenarioIndex;
+        }
+        return scenarioCount;
+    }
+
+    /**
+     * Writes the details for all test scenarios.
+     */
+    protected void writeScenarioDetails() {
+        int scenarioIndex = 0;
+        for (SuiteResult suiteResult : suiteResults) {
+            for (TestResult testResult : suiteResult.getTestResults()) {
+                writer.print("<h2>");
+                writer.print(Utils.escapeHtml(testResult.getTestName()));
+                writer.print("</h2>");
+
+                scenarioIndex += writeScenarioDetails(
+                        testResult.getFailedConfigurationResults(),
+                        scenarioIndex);
+                scenarioIndex += writeScenarioDetails(
+                        testResult.getFailedTestResults(), scenarioIndex);
+                scenarioIndex += writeScenarioDetails(
+                        testResult.getSkippedConfigurationResults(),
+                        scenarioIndex);
+                scenarioIndex += writeScenarioDetails(
+                        testResult.getSkippedTestResults(), scenarioIndex);
+                scenarioIndex += writeScenarioDetails(
+                        testResult.getPassedTestResults(), scenarioIndex);
+            }
         }
     }
 
-    private class TestResultsSorter implements Comparator<ITestResult> {
-        @Override
-        public int compare(ITestResult obj1, ITestResult obj2) {
-            int result = obj1.getTestClass().getName().compareTo(obj2.getTestClass().getName());
-            if (result == 0) {
-                result = obj1.getMethod().getMethodName().compareTo(obj2.getMethod().getMethodName());
+    /**
+     * Writes the scenario details for the results of a given state for a single
+     * test.
+     */
+    private int writeScenarioDetails(List<ClassResult> classResults,
+                                     int startingScenarioIndex) {
+        int scenarioIndex = startingScenarioIndex;
+        for (ClassResult classResult : classResults) {
+            String className = classResult.getClassName();
+            for (MethodResult methodResult : classResult.getMethodResults()) {
+                List<ITestResult> results = methodResult.getResults();
+                assert !results.isEmpty();
+
+                String label = Utils
+                        .escapeHtml(className
+                                + "#"
+                                + results.iterator().next().getMethod()
+                                .getMethodName());
+                for (ITestResult result : results) {
+                    writeScenario(scenarioIndex, label, result);
+                    scenarioIndex++;
+                }
             }
-            return result;
+        }
+
+        return scenarioIndex - startingScenarioIndex;
+    }
+
+    /**
+     * Writes the details for an individual test scenario.
+     */
+    private void writeScenario(int scenarioIndex, String label,
+                               ITestResult result) {
+        writer.print("<h3 id='m'");
+                writer.print(scenarioIndex);
+        writer.print("'>'");
+                writer.print(label);
+        writer.print("</h3>");
+
+        writer.print("<table class='table-bordered result'>");
+
+        boolean hasRows = false;
+
+        // Write test parameters (if any)
+        Object[] parameters = result.getParameters();
+        int parameterCount = (parameters == null ? 0 : parameters.length);
+        if (parameterCount > 0) {
+            writer.print("<tr class='param'>");
+            for (int i = 1; i <= parameterCount; i++) {
+                writer.print("<th>Parameter #");
+                writer.print(i);
+                writer.print("</th>");
+            }
+            writer.print("</tr><tr class='param stripe'>");
+            for (Object parameter : parameters) {
+                writer.print("<td>");
+                writer.print(Utils.escapeHtml(Utils.toString(parameter)));
+                writer.print("</td>");
+            }
+            writer.print("</tr>");
+            hasRows = true;
+        }
+
+        // Write reporter messages (if any)
+        List<String> reporterMessages = Reporter.getOutput(result);
+        if (!reporterMessages.isEmpty()) {
+            writer.print("<tr><th");
+            if (parameterCount > 1) {
+                writer.printf(" colspan='%d'", parameterCount);
+            }
+            writer.print(">Messages</th></tr>");
+
+            writer.print("<tr><td");
+            if (parameterCount > 1) {
+                writer.printf(" colspan='%d'", parameterCount);
+            }
+            writer.print(">");
+            writeReporterMessages(reporterMessages);
+            writer.print("</td></tr>");
+            hasRows = true;
+        }
+
+        // Write exception (if any)
+        Throwable throwable = result.getThrowable();
+        if (throwable != null) {
+            writer.print("<tr><th");
+            if (parameterCount > 1) {
+                writer.printf(" colspan='%d'", parameterCount);
+            }
+            writer.print(">");
+            writer.print((result.getStatus() == ITestResult.SUCCESS ? "Expected Exception"
+                    : "Exception"));
+            writer.print("</th></tr>");
+
+            writer.print("<tr><td");
+            if (parameterCount > 1) {
+                writer.printf(" colspan='%d'", parameterCount);
+            }
+            writer.print(">");
+            writeStackTrace(throwable);
+            writer.print("</td></tr>");
+            hasRows = true;
+        }
+
+        if (!hasRows) {
+            writer.print("<tr><th");
+            if (parameterCount > 1) {
+                writer.printf(" colspan='%d'", parameterCount);
+            }
+            writer.print(" class='invisible'/></tr>");
+        }
+
+        writer.print("</table>");
+        writer.println("<p class='totop'><a href='#summary'>back to summary</a></p>");
+    }
+
+    protected void writeReporterMessages(List<String> reporterMessages) {
+        writer.print("<div class='messages'>");
+        Iterator<String> iterator = reporterMessages.iterator();
+        assert iterator.hasNext();
+        if (Reporter.getEscapeHtml()) {
+            writer.print(Utils.escapeHtml(iterator.next()));
+        } else {
+            writer.print(iterator.next());
+        }
+        while (iterator.hasNext()) {
+            writer.print("<br/>");
+            if (Reporter.getEscapeHtml()) {
+                writer.print(Utils.escapeHtml(iterator.next()));
+            } else {
+                writer.print(iterator.next());
+            }
+        }
+        writer.print("</div>");
+    }
+
+    protected void writeStackTrace(Throwable throwable) {
+        writer.print("<div class='stacktrace'>");
+        writer.print(Utils.shortStackTrace(throwable, true));
+        writer.print("</div>");
+    }
+
+    /**
+     * Writes a TH element with the specified contents and CSS class names.
+     *
+     * @param html
+     *            the HTML contents
+     * @param cssClasses
+     *            the space-delimited CSS classes or null if there are no
+     *            classes to apply
+     */
+    protected void writeTableHeader(String html, String cssClasses) {
+        writeTag("th", html, cssClasses);
+    }
+
+    /**
+     * Writes a TD element with the specified contents.
+     *
+     * @param html
+     *            the HTML contents
+     */
+    protected void writeTableData(String html) {
+        writeTableData(html, null);
+    }
+
+    /**
+     * Writes a TD element with the specified contents and CSS class names.
+     *
+     * @param html
+     *            the HTML contents
+     * @param cssClasses
+     *            the space-delimited CSS classes or null if there are no
+     *            classes to apply
+     */
+    protected void writeTableData(String html, String cssClasses) {
+        writeTag("td", html, cssClasses);
+    }
+
+    /**
+     * Writes an arbitrary HTML element with the specified contents and CSS
+     * class names.
+     *
+     * @param tag
+     *            the tag name
+     * @param html
+     *            the HTML contents
+     * @param cssClasses
+     *            the space-delimited CSS classes or null if there are no
+     *            classes to apply
+     */
+    protected void writeTag(String tag, String html, String cssClasses) {
+        writer.print("<");
+        writer.print(tag);
+        if (cssClasses != null) {
+            writer.print(" class=''");
+                    writer.print(cssClasses);
+            writer.print("");
+        }
+        writer.print(">");
+        writer.print(html);
+        writer.print("</");
+        writer.print(tag);
+        writer.print(">");
+    }
+
+    /**
+     * Groups {@link TestResult}s by suite.
+     */
+    protected static class SuiteResult {
+        private final String suiteName;
+        private final List<TestResult> testResults = Lists.newArrayList();
+
+        public SuiteResult(ISuite suite) {
+            suiteName = suite.getName();
+            for (ISuiteResult suiteResult : suite.getResults().values()) {
+                testResults.add(new TestResult(suiteResult.getTestContext()));
+            }
+        }
+
+        public String getSuiteName() {
+            return suiteName;
+        }
+
+        /**
+         * @return the test results (possibly empty)
+         */
+        public List<TestResult> getTestResults() {
+            return testResults;
         }
     }
+
+    /**
+     * Groups {@link ClassResult}s by test, type (configuration or test), and
+     * status.
+     */
+    protected static class TestResult {
+        /**
+         * Orders test results by class name and then by method name (in
+         * lexicographic order).
+         */
+        protected static final Comparator<ITestResult> RESULT_COMPARATOR = new Comparator<ITestResult>() {
+            @Override
+            public int compare(ITestResult o1, ITestResult o2) {
+                int result = o1.getTestClass().getName()
+                        .compareTo(o2.getTestClass().getName());
+                if (result == 0) {
+                    result = o1.getMethod().getMethodName()
+                            .compareTo(o2.getMethod().getMethodName());
+                }
+                return result;
+            }
+        };
+
+        private final String testName;
+        private final Date testStartTime;
+        private final Date testEndTime;
+        private final List<ClassResult> failedConfigurationResults;
+        private final List<ClassResult> failedTestResults;
+        private final List<ClassResult> skippedConfigurationResults;
+        private final List<ClassResult> skippedTestResults;
+        private final List<ClassResult> passedTestResults;
+        private final int failedTestCount;
+        private final int skippedTestCount;
+        private final int passedTestCount;
+        private final int testCount;
+        private final long duration;
+        private final String includedGroups;
+        private final String excludedGroups;
+
+        public TestResult(ITestContext context) {
+            testName = context.getName();
+
+            Set<ITestResult> failedConfigurations = context
+                    .getFailedConfigurations().getAllResults();
+            Set<ITestResult> failedTests = context.getFailedTests()
+                    .getAllResults();
+            Set<ITestResult> skippedConfigurations = context
+                    .getSkippedConfigurations().getAllResults();
+            Set<ITestResult> skippedTests = context.getSkippedTests()
+                    .getAllResults();
+            Set<ITestResult> passedTests = context.getPassedTests()
+                    .getAllResults();
+
+            failedConfigurationResults = groupResults(failedConfigurations);
+            failedTestResults = groupResults(failedTests);
+            skippedConfigurationResults = groupResults(skippedConfigurations);
+            skippedTestResults = groupResults(skippedTests);
+            passedTestResults = groupResults(passedTests);
+
+            testStartTime = context.getStartDate();
+            testEndTime = context.getEndDate();
+
+            failedTestCount = failedTests.size();
+            skippedTestCount = skippedTests.size();
+            passedTestCount = passedTests.size();
+            testCount = context.getAllTestMethods().length;
+
+            duration = context.getEndDate().getTime() -context.getStartDate().getTime();
+
+            includedGroups = formatGroups(context.getIncludedGroups());
+            excludedGroups = formatGroups(context.getExcludedGroups());
+        }
+
+        /**
+         * Groups test results by method and then by class.
+         */
+        protected List<ClassResult> groupResults(Set<ITestResult> results) {
+            List<ClassResult> classResults = Lists.newArrayList();
+            if (!results.isEmpty()) {
+                List<MethodResult> resultsPerClass = Lists.newArrayList();
+                List<ITestResult> resultsPerMethod = Lists.newArrayList();
+
+                List<ITestResult> resultsList = Lists.newArrayList(results);
+                Collections.sort(resultsList, RESULT_COMPARATOR);
+                Iterator<ITestResult> resultsIterator = resultsList.iterator();
+                assert resultsIterator.hasNext();
+
+                ITestResult result = resultsIterator.next();
+                resultsPerMethod.add(result);
+
+                String previousClassName = result.getTestClass().getName();
+                String previousMethodName = result.getMethod().getMethodName();
+                while (resultsIterator.hasNext()) {
+                    result = resultsIterator.next();
+
+                    String className = result.getTestClass().getName();
+                    if (!previousClassName.equals(className)) {
+                        // Different class implies different method
+                        assert !resultsPerMethod.isEmpty();
+                        resultsPerClass.add(new MethodResult(resultsPerMethod));
+                        resultsPerMethod = Lists.newArrayList();
+
+                        assert !resultsPerClass.isEmpty();
+                        classResults.add(new ClassResult(previousClassName,
+                                resultsPerClass));
+                        resultsPerClass = Lists.newArrayList();
+
+                        previousClassName = className;
+                        previousMethodName = result.getMethod().getMethodName();
+                    } else {
+                        String methodName = result.getMethod().getMethodName();
+                        if (!previousMethodName.equals(methodName)) {
+                            assert !resultsPerMethod.isEmpty();
+                            resultsPerClass.add(new MethodResult(resultsPerMethod));
+                            resultsPerMethod = Lists.newArrayList();
+
+                            previousMethodName = methodName;
+                        }
+                    }
+                    resultsPerMethod.add(result);
+                }
+                assert !resultsPerMethod.isEmpty();
+                resultsPerClass.add(new MethodResult(resultsPerMethod));
+                assert !resultsPerClass.isEmpty();
+                classResults.add(new ClassResult(previousClassName,
+                        resultsPerClass));
+            }
+            return classResults;
+        }
+
+        public String getTestName() {
+            return testName;
+        }
+
+        public Date getTestStartTime() {
+            return testStartTime;
+          }
+
+        public Date getTestEndTime() {
+            return testEndTime;
+          }
+
+
+        /**
+         * @return the results for failed configurations (possibly empty)
+         */
+        public List<ClassResult> getFailedConfigurationResults() {
+            return failedConfigurationResults;
+        }
+
+        /**
+         * @return the results for failed tests (possibly empty)
+         */
+        public List<ClassResult> getFailedTestResults() {
+            return failedTestResults;
+        }
+
+        /**
+         * @return the results for skipped configurations (possibly empty)
+         */
+        public List<ClassResult> getSkippedConfigurationResults() {
+            return skippedConfigurationResults;
+        }
+
+        /**
+         * @return the results for skipped tests (possibly empty)
+         */
+        public List<ClassResult> getSkippedTestResults() {
+            return skippedTestResults;
+        }
+
+        /**
+         * @return the results for passed tests (possibly empty)
+         */
+        public List<ClassResult> getPassedTestResults() {
+            return passedTestResults;
+        }
+
+        public int getFailedTestCount() {
+            return failedTestCount;
+        }
+
+        public int getSkippedTestCount() {
+            return skippedTestCount;
+        }
+
+        public int getPassedTestCount() {
+            return passedTestCount;
+        }
+
+        public long getDuration() {
+            return duration;
+        }
+
+        public String getIncludedGroups() {
+            return includedGroups;
+        }
+
+        public String getExcludedGroups() {
+            return excludedGroups;
+        }
+
+        public int getTestCount() {
+            return testCount;
+        }
+
+        /**
+         * Formats an array of groups for display.
+         */
+        protected String formatGroups(String[] groups) {
+            if (groups.length == 0) {
+                return "";
+            }
+
+            StringBuilder builder = new StringBuilder();
+            builder.append(groups[0]);
+            for (int i = 1; i < groups.length; i++) {
+                builder.append(", ").append(groups[i]);
+            }
+            return builder.toString();
+        }
+    }
+
+    /**
+     * Groups {@link MethodResult}s by class.
+     */
+    protected static class ClassResult {
+        private final String className;
+        private final List<MethodResult> methodResults;
+
+        /**
+         * @param className
+         *            the class name
+         * @param methodResults
+         *            the non-null, non-empty {@link MethodResult} list
+         */
+        public ClassResult(String className, List<MethodResult> methodResults) {
+            this.className = className;
+            this.methodResults = methodResults;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+
+        /**
+         * @return the non-null, non-empty {@link MethodResult} list
+         */
+        public List<MethodResult> getMethodResults() {
+            return methodResults;
+        }
+    }
+
+    /**
+     * Groups test results by method.
+     */
+    protected static class MethodResult {
+        private final List<ITestResult> results;
+
+        /**
+         * @param results
+         *            the non-null, non-empty result list
+         */
+        public MethodResult(List<ITestResult> results) {
+            this.results = results;
+        }
+
+        /**
+         * @return the non-null, non-empty result list
+         */
+        public List<ITestResult> getResults() {
+            return results;
+        }
+    }
+
+
+	/* Convert long type milliseconds to format hh:mm:ss */
+	public String convertTimeToString(long miliSeconds) {
+		int hrs = (int) TimeUnit.MILLISECONDS.toHours(miliSeconds) % 24;
+		int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
+		int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
+		return String.format("%02d:%02d:%02d", hrs, min, sec);
+	}
 
 }

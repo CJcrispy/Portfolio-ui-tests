@@ -7,7 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dndBeyond-ui-tests" />
+        <module name="portfolio-ui-tests" />
       </profile>
     </annotationProcessing>
   </component>

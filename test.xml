@@ -8,7 +8,11 @@
     
     <test name="Regression" parallel="methods">
         <classes>
-            <class name="dnd.testng.tests.test_HomePage"></class>
+            <class name="portfolio.testng.tests.test_HomeSection"></class>
+            <class name="portfolio.testng.tests.test_AboutSection"></class>
+            <class name="portfolio.testng.tests.test_ContactSection"></class>
+            <class name="portfolio.testng.tests.test_ProjectsSection"></class>
+            <class name="portfolio.testng.tests.test_SkillsSection"></class>
         </classes>
     </test>
 </suite>

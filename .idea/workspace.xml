@@ -2,26 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9cde7908-8820-4692-98e2-595a93d02485" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ci/config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/pipeline.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/scripts/run_postman_collection.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ci/tasks/run_postman_collection" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/framework/core/listeners/ReportListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application/object.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/framework/core/utilities/Util.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_AboutSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ContactSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_HomeSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_ProjectsSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/tests/test_SkillsSection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$ClassResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$MethodResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$SuiteResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestResult$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/framework/core/utilities/Util.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/Initialize.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_AboutSection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ContactSection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_HomeSection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_ProjectsSection.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/portfolio/testng/tests/test_SkillsSection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Initializers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Initializers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dndBeyond-ui-tests.iml" beforeDir="false" afterPath="$PROJECT_DIR$/portfolio-ui-tests.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/helpers/Utility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/framework/core/listeners/ReportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/framework/core/listeners/ReportListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application/object.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application/object.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/commons/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/commons/chromedriver.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/Initialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dnd/testng/Initialize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/tests/test_HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dnd/testng/tests/test_HomePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/Initialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/portfolio/testng/Initialize.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dnd/testng/tests/test_HomePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application/object.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application/object.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/commons/chromedriver.exe" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/commons/chromedriver.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/helpers/Initializers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/helpers/Initializers.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/framework/core/helpers/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/helpers/Utility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/Initialize.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dnd/testng/Initialize.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/tests/test_HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/dnd/testng/tests/test_HomePage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestMethodSorter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestResultsSorter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener$TestSorter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/framework/core/listeners/ReportListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/Initialize.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/dnd/testng/tests/test_HomePage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-output/custom-report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-output/test-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/test-output/test-report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/test.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,10 +76,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Flutter-responsive-email-ui---Mobile-Tablet-and-Web" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
@@ -69,10 +91,13 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Chris\Documents\Github\dndBeyond-ui-tests" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Chris\Documents\Github\dndBeyond-ui-tests\src\main\resources\commons" />
+    </key>
   </component>
-  <component name="RunManager" selected="TestNG.TestNG start">
+  <component name="RunManager" selected="TestNG.test_ProjectsSection.validate_sudokuProjectCard">
     <configuration name="TestNG start" type="TestNG">
-      <module name="dndBeyond-ui-tests" />
+      <module name="portfolio-ui-tests" />
       <option name="SUITE_NAME" value="$PROJECT_DIR$/test.xml" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="" />
@@ -91,17 +116,89 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test_HomePage.about_page_test" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="dndBeyond-ui-tests" />
+    <configuration name="test_ContactSection.validate_contactForm" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="portfolio-ui-tests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dnd.testng.tests.*" />
+          <option name="PATTERN" value="portfolio.testng.tests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dnd.testng.tests" />
-      <option name="MAIN_CLASS_NAME" value="dnd.testng.tests.test_HomePage" />
-      <option name="METHOD_NAME" value="about_page_test" />
+      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_ContactSection" />
+      <option name="METHOD_NAME" value="validate_contactForm" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test_ProjectsSection.validate_portfolioProjectCard" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="portfolio-ui-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="portfolio.testng.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_ProjectsSection" />
+      <option name="METHOD_NAME" value="validate_portfolioProjectCard" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test_ProjectsSection.validate_sudokuProjectCard" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="portfolio-ui-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="portfolio.testng.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_ProjectsSection" />
+      <option name="METHOD_NAME" value="validate_sudokuProjectCard" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test_SkillsSection.skills_page_test" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="portfolio-ui-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="portfolio.testng.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_SkillsSection" />
+      <option name="METHOD_NAME" value="skills_page_test" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test_SkillsSection.skills_page_test2" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="portfolio-ui-tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="portfolio.testng.tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="portfolio.testng.tests" />
+      <option name="MAIN_CLASS_NAME" value="portfolio.testng.tests.test_SkillsSection" />
+      <option name="METHOD_NAME" value="skills_page_test2" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -111,7 +208,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.test_HomePage.about_page_test" />
+        <item itemvalue="TestNG.test_ProjectsSection.validate_sudokuProjectCard" />
+        <item itemvalue="TestNG.test_ContactSection.validate_contactForm" />
+        <item itemvalue="TestNG.test_ProjectsSection.validate_portfolioProjectCard" />
+        <item itemvalue="TestNG.test_SkillsSection.skills_page_test2" />
+        <item itemvalue="TestNG.test_SkillsSection.skills_page_test" />
       </list>
     </recent_temporary>
   </component>
@@ -140,47 +241,33 @@
     </task>
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="-1506" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616535130060">
-      <screen x="-1920" y="6" width="1920" height="1040" />
-    </state>
-    <state x="-1506" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616535130060" />
-    <state x="-1221" y="328" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1616539256625">
-      <screen x="-1920" y="6" width="1920" height="1040" />
-    </state>
-    <state x="-1221" y="328" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616539256625" />
-    <state x="-1231" y="309" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1616534045115">
-      <screen x="-1920" y="6" width="1920" height="1040" />
-    </state>
-    <state x="-1231" y="309" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616534045115" />
-    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1620536248500">
+    <state x="552" y="178" key="#Project_Structure" timestamp="1631664047678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1180" y="266" key="FileChooserDialogImpl/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616534052020" />
-    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620536248500" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1620612876681">
+    <state x="552" y="178" key="#Project_Structure/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631664047678" />
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1631675169136">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
-    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876681" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1620612876681">
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675169136" />
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom" timestamp="1631675123831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
-    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876681" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1620612876679">
+    <state width="1877" height="273" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
+    <state width="1877" height="273" key="GridCell.Tab.0.center" timestamp="1631675123831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
-    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876679" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1620612876681">
+    <state width="1877" height="273" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
+    <state width="1877" height="273" key="GridCell.Tab.0.left" timestamp="1631675123831">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="425" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616545633345" />
-    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.6.1920.1040@0.0.1920.1040" timestamp="1620612876681" />
-    <state x="-1480" y="100" key="SettingsEditor" timestamp="1616533618908">
-      <screen x="-1920" y="6" width="1920" height="1040" />
+    <state width="1877" height="273" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right" timestamp="1631675123831">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="-1480" y="100" key="SettingsEditor/0.0.1920.1040/-1920.6.1920.1040@-1920.6.1920.1040" timestamp="1616533618908" />
+    <state width="1877" height="273" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.8.1920.1040@0.0.1920.1040" timestamp="1631675123831" />
   </component>
 </project>
